@@ -30,22 +30,22 @@ contract('CustomContract', function ([owner, wallet, investor, investor2, vandal
     });
 
     it('Sending ETH to custom contract should increase token balance', async function () {
-      let pre_balance = await token.balanceOf(investor);
+      let pre_balance = (await token.balanceOf(investor)).toNumber();
       await web3.eth.sendTransaction({
         from: investor,
         to: customContract.address,
-        value: oneEth
+        value: oneEth,
+        gas: 600000
       });
-      expect(await token.balanceOf(investor)).should.be.above(pre_balance);
+      let post_balance = (await token.balanceOf(investor)).toNumber();
+      expect(post_balance > pre_balance).to.be.true;
     });
 
     it('Sending ETH to the custom contracts buyTokens function should increase token balance', async function () {
       let pre_balance = (await token.balanceOf(investor)).toNumber();
-      console.log(pre_balance);
-      await customContract.buyTokens({ from: investor, value: oneEth });
+      await customContract.buyTokens({ from: investor, value: oneEth, gas: 600000 });
       let post_balance = (await token.balanceOf(investor)).toNumber()
-      console.log(post_balance);
-      expect().should.be.above(pre_balance);
+      expect(post_balance > pre_balance).to.be.true;
     });
 
     it('Buying tokens through the fallback function and buyTokens should get the same number of tokens', async function () {
@@ -53,9 +53,12 @@ contract('CustomContract', function ([owner, wallet, investor, investor2, vandal
       await web3.eth.sendTransaction({
         from: investor2,
         to: customContract.address,
-        value: oneEth
+        value: oneEth,
+        gas: 600000
       });
-      expect(await token.balanceOf(investor)).to.equal(await token.balanceOf(investor2));
+      let investor1_balance = (await token.balanceOf(investor)).toNumber();
+      let investor2_balance = (await token.balanceOf(investor2)).toNumber();
+      expect(investor1_balance).to.equal(investor2_balance);
     });
   });
 
