@@ -7,6 +7,8 @@ module.exports = {
                 'token/SafeMath.sol',
                 'token/TestToken.sol',
                 'Crowdsale/Crowdsale.sol',
-                'Crowdsale/SafeERC20.sol'
+                'Crowdsale/SafeERC20.sol',
+                'mocks/PausableMock.sol',
+                'mocks/WhitelistMock.sol'
                 ]
 };
