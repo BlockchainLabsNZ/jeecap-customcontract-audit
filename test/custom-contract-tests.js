@@ -8,17 +8,19 @@ const should = require('chai')
   .should();
 
 const CustomContract = artifacts.require('CustomContract');
-const Token = artifacts.require('BasicToken');
+const Token = artifacts.require('TestToken');
 const Crowdsale = artifacts.require('Crowdsale');
 
 const oneEth = 1000000000000000000;
+const totalSupply = oneEth * 1000;
 
 contract('CustomContract', function ([owner, wallet, investor, investor2, vandal]) {
   let customContract, token, crowdsale;
 
   beforeEach(async function () {
-      token = await Token.new();
+      token = await Token.new(totalSupply, { from: owner });
       crowdsale = await Crowdsale.new(1, wallet, token.address);
+      await token.transfer(crowdsale.address, totalSupply, { from: owner })
       customContract = await CustomContract.new(token.address, crowdsale.address);
   });
 
@@ -38,9 +40,12 @@ contract('CustomContract', function ([owner, wallet, investor, investor2, vandal
     });
 
     it('Sending ETH to the custom contracts buyTokens function should increase token balance', async function () {
-      let pre_balance = await token.balanceOf(investor);
+      let pre_balance = (await token.balanceOf(investor)).toNumber();
+      console.log(pre_balance);
       await customContract.buyTokens({ from: investor, value: oneEth });
-      expect(await token.balanceOf(investor)).should.be.above(pre_balance);
+      let post_balance = (await token.balanceOf(investor)).toNumber()
+      console.log(post_balance);
+      expect().should.be.above(pre_balance);
     });
 
     it('Buying tokens through the fallback function and buyTokens should get the same number of tokens', async function () {

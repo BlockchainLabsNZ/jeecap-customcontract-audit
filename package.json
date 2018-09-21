@@ -10,7 +10,7 @@
   },
   "scripts": {
     "compile": "node_modules/.bin/truffle compile",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "truffle test",
     "build-contracts": "sol-merger './contracts/*.sol' ./build",
     "coverage": "./node_modules/.bin/solidity-coverage"
   },
