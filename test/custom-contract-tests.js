@@ -1,5 +1,5 @@
 import assertFail from '../test/assertRevert';
-
+const BN = web3.utils.BN;
 const BigNumber = web3.BigNumber;
 
 const should = require('chai')
@@ -12,7 +12,7 @@ const Token = artifacts.require('TestToken');
 const Crowdsale = artifacts.require('Crowdsale');
 
 const oneEth = 1000000000000000000;
-const totalSupply = oneEth * 1000;
+const totalSupply = oneEth * 100;
 
 contract('CustomContract', function ([owner, wallet, investor, investor2, vandal]) {
   let customContract, token, crowdsale;
@@ -30,21 +30,21 @@ contract('CustomContract', function ([owner, wallet, investor, investor2, vandal
     });
 
     it('Sending ETH to custom contract should increase token balance', async function () {
-      let pre_balance = (await token.balanceOf(investor)).toNumber();
+      let pre_balance = new BN(await token.balanceOf(investor));
       await web3.eth.sendTransaction({
         from: investor,
         to: customContract.address,
         value: oneEth,
         gas: 600000
       });
-      let post_balance = (await token.balanceOf(investor)).toNumber();
+      let post_balance =new BN(await token.balanceOf(investor));
       expect(post_balance > pre_balance).to.be.true;
     });
 
     it('Sending ETH to the custom contracts buyTokens function should increase token balance', async function () {
-      let pre_balance = (await token.balanceOf(investor)).toNumber();
+      let pre_balance = new BN(await token.balanceOf(investor));
       await customContract.buyTokens({ from: investor, value: oneEth, gas: 600000 });
-      let post_balance = (await token.balanceOf(investor)).toNumber()
+      let post_balance = new BN(await token.balanceOf(investor));
       expect(post_balance > pre_balance).to.be.true;
     });
 
@@ -56,9 +56,9 @@ contract('CustomContract', function ([owner, wallet, investor, investor2, vandal
         value: oneEth,
         gas: 600000
       });
-      let investor1_balance = (await token.balanceOf(investor)).toNumber();
-      let investor2_balance = (await token.balanceOf(investor2)).toNumber();
-      expect(investor1_balance).to.equal(investor2_balance);
+      let investor1_balance = new BN(await token.balanceOf(investor));
+      let investor2_balance = new BN(await token.balanceOf(investor2));
+      expect(investor1_balance.cmp(investor2_balance)).to.equal(0);
     });
   });
 
