@@ -4,7 +4,7 @@
 ## Preamble
 This audit report was undertaken by <b>BlockchainLabs.nz</b> for the purpose of providing feedback to <b>Jeecap</b>. <br>It has subsequently been shared publicly without any express or implied warranty.
 
-Solidity contracts were sourced directly from the Jeecaps GitLab account, we would encourage all community members and token holders to make their own assessment of the contracts once they are deployed and verified.
+Solidity contracts were sourced directly from the Jeecaps GitLab account at this commit [d5742a994118a](https://gitlab.com/jeecap/smart-contract/commit/d5742a994118a139623e279204344b0ddc127203), we would encourage all community members and token holders to make their own assessment of the contracts once they are deployed and verified.
 
 <br>
 
