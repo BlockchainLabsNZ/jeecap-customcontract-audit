@@ -9,7 +9,7 @@ Solidity contracts were sourced directly from the Jeecaps GitLab account, we wou
 <br>
 
 ## Scope
-The following contract was a subject for static, dynamic and functional analyses:
+The following contract was a subject for static, and dynamic analyses:
 
 Contracts
   - [CustomContract.sol](https://github.com/BlockchainLabsNZ/jeecap-customcontract-audit/blob/master/contracts/CustomContract.sol)
@@ -47,7 +47,7 @@ The audit report is focused on the following key areas - though this is not an e
 
 ## Analysis
 
-- [Functional tests](functional-test-report.md)
+- [Gas Consumption report](gas-consumption-report.md)
 - [Dynamic analysis](dynamic-analysis.md)
 - [Test coverage](test-coverage.md)
 
