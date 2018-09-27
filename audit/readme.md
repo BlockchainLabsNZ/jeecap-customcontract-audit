@@ -86,6 +86,7 @@ The audit report is focused on the following key areas - though this is not an e
 
 ### Critical
 - **Potential re-entrancy bug** - `Security` Using this method is not recommended because it forwards all of the transactions gas into control of an external contract [View on GitHub](https://github.com/BlockchainLabsNZ/jeecap-customcontract-audit/issues/2)
+  - [x] Fixed: [468b86](https://gitlab.com/jeecap/smart-contract/commit/d5742a994118a139623e279204344b0ddc127203)
 
 
 <br>
